@@ -1,4 +1,10 @@
 
+import 'package:e_commerce/cart_screen/cart_screen.dart';
+import 'package:e_commerce/categories_and_featured_screen/categories_and_featured_screen.dart';
+import 'package:e_commerce/home_screen/drawer.dart';
+import 'package:e_commerce/home_screen/home_screen_controller.dart';
+import 'package:e_commerce/home_screen/model_class/categories_model.dart';
+import 'package:e_commerce/item_screen/item_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,15 +17,15 @@ class HomeScreenView extends StatelessWidget {
     final controller = Get.put(HomeScreenController());
 
     return Container(
-      color: Colors.blueAccent,
+      color: Color.fromARGB(255, 3, 18, 147),
       child: SafeArea(
         child: GetBuilder<HomeScreenController>(
-          builder: (value) {
+          builder: (value) { 
             if (!value.isLoading) {
               return Scaffold(
                 appBar: AppBar(
-                  title: const Text("Ecommerce App"),
-                  backgroundColor: Colors.blueAccent,
+                  title: const Text("Dr Deals"),
+                  backgroundColor: Color.fromARGB(255, 12, 5, 236),
                   actions: [
                     IconButton(
                       onPressed: () {
@@ -48,6 +54,7 @@ class HomeScreenView extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   decoration: BoxDecoration(
+
                                     image: DecorationImage(
                                       image: NetworkImage(
                                           controller.bannerData[index].image),
@@ -163,6 +170,7 @@ class HomeScreenView extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
+                      
                     ),
                   ),
                 ),
@@ -174,7 +182,8 @@ class HomeScreenView extends StatelessWidget {
     );
   }
 
-  Widget categoriesTitle(Size size, String title, Function function) {
+  Widget categoriesTitle(Size size, String title, Function 
+  function) {
     return SizedBox(
       height: size.height / 17,
       width: size.width / 1.05,

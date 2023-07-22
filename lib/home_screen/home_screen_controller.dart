@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/home_screen/model_class/banner_data_model.dart';
+import 'package:e_commerce/home_screen/model_class/categories_model.dart';
 import 'package:get/get.dart';
 
 class HomeScreenController extends GetxController {
@@ -7,7 +9,8 @@ class HomeScreenController extends GetxController {
   late List<CategoriesModel> categoriesData;
   late List<CategoriesModel> featuredData;
   bool isLoading = true;
-  List<RxBool> isSelected = [];
+  List<RxBool> isSelected = [];//fore showing indicator below the banner type is  bool
+
 
   void getAllData() async {
     await Future.wait([
@@ -24,7 +27,7 @@ class HomeScreenController extends GetxController {
     });
   }
 
-  void changeIndicator(int index) {
+  void  changeIndicator(int index) {//for moving indiacator
     for (var i = 0; i < isSelected.length; i++) {
       if (isSelected[i].value) {
         isSelected[i].value = false;
@@ -43,6 +46,8 @@ class HomeScreenController extends GetxController {
         isSelected.add(false.obs);
       }
 
+
+
       isSelected[0].value = true;
     });
   }
@@ -56,6 +61,7 @@ class HomeScreenController extends GetxController {
 
   Future<void> getFeaturedData() async {
     await _firestore.collection('featured').get().then((value) {
+      
       featuredData =
           value.docs.map((e) => CategoriesModel.fromJson(e.data())).toList();
     });

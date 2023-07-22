@@ -1,4 +1,6 @@
 import 'package:e_commerce/authentication/login_screen/otp_verification_screen/otp_verification_view.dart';
+import 'package:e_commerce/const/const.dart';
+import 'package:e_commerce/home_screen/home_screen_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,14 +13,15 @@ class LoginScreenController extends GetxController {
   String verificationId = "";
   bool isLoading = false;
 
-  void verifyPhoneNumber() async {
+  Future verifyPhoneNumber() async {
     isLoading = true;
 
     update();
 
     try {
+      print("enter to try block");
       await _auth.verifyPhoneNumber(
-        phoneNumber: "+91${phone.text}",
+        phoneNumber:"+91${phone.text}",
         verificationCompleted: (PhoneAuthCredential credential) async {
           await _auth.signInWithCredential(credential);
           showAlert("Verifed");
@@ -41,14 +44,17 @@ class LoginScreenController extends GetxController {
     }
   }
 
-  void signInWithPhoneNumber() async {
+  Future signInWithPhoneNumber() async {
     try {
+      print("enter in signinwith phone number"
+      );
+      
       final AuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: otp.text,
       );
 
-      var signInUser = await _auth.signInWithCredential(credential);
+      var signInUser = await _auth.signInWithCredential(credential);//if user is new account create otherwise if there is account hten it wisign 
 
       final User? user = signInUser.user;
 
